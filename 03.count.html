@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <script type="text/babel">
+
+        //创建一个类组件
+        class App extends React.Component{
+            constructor(){
+                super()
+                this.state = {
+                    count:0
+                }
+            }
+
+            render(){
+                return(
+                    <div>
+                        <div>{this.state.count}</div>
+                        <button onClick={()=>this.add(1)}>点击加一</button>
+                        <button onClick={()=>this.add(0)}>点击减一</button>
+                    </div>
+                )
+            }
+
+            add(value){
+                if(value===1)
+                {
+                    this.setState({
+                    count:this.state.count+1
+                })
+                }else{
+                    if(this.state.count<=0){
+                        console.log('无法继续减一');
+                        return;
+                    }
+                    this.setState({
+                    count:this.state.count-1
+                })
+                }
+            }
+        }
+
+        
+
+
+
+        ReactDOM.render(<App/>,document.getElementById('app'))
+    </script>
+    
+</body>
+</html>
