@@ -1,26 +1,47 @@
 import React from "react"
-import NavBar from './component/NavBar'
+import Parent from './component/Parent'
+import { Usercontext } from './context/index'
 
-/* react实现插槽的方法是,直接将jsx作为数据传递给子组件 */
-class App extends React.Component{
-    constructor(){
+export class App extends React.Component {
+    constructor() {
         super()
-        this.state={
-            nav1:[<div>左边</div>,<div>中间</div>,<div>右边</div>],
-            nav2:[<div>左边2</div>,<div>中间2</div>,<div>右边2</div>],
-            nav3:[<div>左边3</div>,<div>中间3</div>,<div>右边3</div>],
+        this.state = {
+            name: 'tom'
         }
     }
-    render(){
-        const {nav1,nav2,nav3} = this.state
+    render() {
         return (
-            <div className='container'>
-                <NavBar nav1={nav1}/>
-                <NavBar nav1={nav2}/>
-                <NavBar>{nav3}</NavBar>
+
+            <div>
+
+
+
+                <Usercontext.Provider value={this.state}>
+                    <Parent name="jack" />
+                </Usercontext.Provider>
+
+
+
             </div>
+
         )
     }
 }
 
-export default App
+{/* 使用context来跨组件传递 */ }
+
+//1. 创建context对象
+//这里我重新创建了一个文件导入了context对象
+// export const Usercontext = React.createContext()
+
+
+//2. 用context对象中的Provider作为组件包裹子组件
+{/* <Usercontext.Provider value={this.state}>
+    <Parent name="jack" />
+</Usercontext.Provider> */}
+
+//3. 在子组件中使用 组件名.contextType = context对象
+// Kid.contextType = Usercontext
+
+//4. 在想使用的地方使用this.context.属性名
+{/* <div>Kid's name is { this.props.name||this.context.name}</div> */}
