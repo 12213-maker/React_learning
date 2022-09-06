@@ -45,3 +45,20 @@ export class App extends React.Component {
 
 //4. 在想使用的地方使用this.context.属性名
 {/* <div>Kid's name is { this.props.name||this.context.name}</div> */}
+
+
+
+//函数式组件使用context的方法
+export default function Kid() {
+    return (
+        <Usercontext.Consumer>
+            {
+                value => {
+                    return (
+                        <h3>{value.name}</h3>
+                    )
+                }
+            }
+        </Usercontext.Consumer>
+    )
+}
