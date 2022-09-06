@@ -4,6 +4,5 @@ import ReactDOM from "react-dom"
 import React from "react"
 import App from './App'
 
-import './style/Header.css'
 
 ReactDOM.render(<App/>,document.getElementById('root'))
