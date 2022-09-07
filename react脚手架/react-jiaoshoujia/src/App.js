@@ -28,6 +28,7 @@ export class App extends React.Component {
         //     message:'你好 扶华'
         // },()=>{
         //     console.log(this.state.message);
+        //
         // })
 
 
