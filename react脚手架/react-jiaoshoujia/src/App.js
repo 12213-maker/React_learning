@@ -1,72 +1,64 @@
-import React, { PureComponent } from 'react'
-import {EventEmitter} from 'events'
+import React, { PureComponent, createRef } from 'react'
 
-const eventBus = new EventEmitter()
-
-class Home extends PureComponent {
-
-    componentDidMount(){
-        eventBus.addListener('sayHello',this.getSayHello)
+class Counter extends PureComponent {
+    constructor(){
+        super()
+        this.state={
+            counter:0
+        }
     }
-    
-    componentWillUnmount(){
-        eventBus.removeListener('sayHello',this.getSayHello)
-    }
-
-    getSayHello(){
-        console.log(...arguments);
-    }
-
-    render() {
-        return (
-            <div>Home</div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <div>{this.state.counter}</div>
+        <button onClick={e=>this.increment()}>+1</button>
+      </div>
+    )
+  }
+  increment(){
+    this.setState({
+        counter:this.state.counter+1
+    })
+  }
 }
-class Profile extends PureComponent {
-    render() {
-        return (
-            <div>Profile
-                <button onClick={e=>this.emitEvent()}>点击了Profile的按钮</button>
-            </div>
-        )
-    }
 
-    emitEvent(){
-        eventBus.emit('sayHello','hello home',123)
-    }
-}
+
 export default class App extends PureComponent {
+    constructor() {
+        super()
+        this.titleRef = createRef()
+        this.counterRef = createRef()
+        this.titlefunc = null
+    }
     render() {
         return (
             <div>
-                <Home />
-                <Profile />
+
+                {/* //字符串ref------- 弃用 */}
+                {/* <div ref='titleRef'>hello world</div>
+                <button onClick={e=>this.changetext}>改变文本</button> */}
+
+                {/*       //对象ref  ----- 常用 */}
+                <div ref={this.titleRef}>hello world</div>
+
+                {/*       //函数ref */}
+                <div ref={(args)=>this.titlefunc = args}>hello world</div>
+                <button onClick={e => this.changetext()}>改变文本</button>
+
+                {/* ref也可以在组件中使用,跟vue中的ref一样,父组件都可以通过ref调用子组件中的方法 , 但是不可以在函数式组件中使用ref , 因为他们没有实例  */}
+                <Counter ref={this.counterRef}/>
+                <button onClick={e=>this.useCounterfunc()}>点击使用子组件的状态</button>
             </div>
         )
     }
+
+    changetext() {
+        this.titleRef.current.innerText = '你好 之华'
+        console.log(this.titlefunc);
+        this.titlefunc.innerText = "你好 扶华"
+    }
+
+    useCounterfunc(){
+        this.counterRef.current.increment()
+    }
 }
-
-
-//如何使用全局事件总线
-/* 
- 
-1. 下载events库
-yarn add events
-
-2. 引入evnets 
-import {EventEmitter} from 'events'
-
-3. 创建events实例
-const eventBus = new EventEmitter()
-
-4. 发送emit (A组件和B组件通信,在A组件中发送)
-eventBus.emit(事件名,数据,数据)
-
-5. B组件创建时订阅eventbus接收数据 , 卸载时取消订阅
-一般在componentDidMount中订阅 , 在componentWillUnmount中取消订阅
-订阅: eventBus.addListener(事件名,回调函数)
-取消订阅: eventBus.removeListener(事件名,回调函数)
-
-
-*/
