@@ -1,37 +1,72 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import {EventEmitter} from 'events'
 
-export default class App extends Component {
-    constructor(){
-        super()
-        this.state={
-            name:'你好 之华',
-            age:18
-        }
+const eventBus = new EventEmitter()
+
+class Home extends PureComponent {
+
+    componentDidMount(){
+        eventBus.addListener('sayHello',this.getSayHello)
     }
-  render() {
-    console.log('render');
-    return (
-      <div>
-        {this.state.name}
-        {this.state.age}
-        <br></br>
-        <button onClick={e=>this.changeAge()}>改变age</button>
-      </div>
-      
-    )
-  }
-  shouldComponentUpdate(nextProps,nextState){
-    if(nextState.age !== this.state.age){
-        return true
+    
+    componentWillUnmount(){
+        eventBus.removeListener('sayHello',this.getSayHello)
     }
 
-    return false
-  }
-  changeAge(){
-    //如果直接通过state改变数据 , 那么shouldComponentUpdate 和 PureComponent(浅层比较)是不会生效的
-    this.state.age++
-    this.setState({
-        age:this.state.age
-    })
-  }
+    getSayHello(){
+        console.log(...arguments);
+    }
+
+    render() {
+        return (
+            <div>Home</div>
+        )
+    }
 }
+class Profile extends PureComponent {
+    render() {
+        return (
+            <div>Profile
+                <button onClick={e=>this.emitEvent()}>点击了Profile的按钮</button>
+            </div>
+        )
+    }
+
+    emitEvent(){
+        eventBus.emit('sayHello','hello home',123)
+    }
+}
+export default class App extends PureComponent {
+    render() {
+        return (
+            <div>
+                <Home />
+                <Profile />
+            </div>
+        )
+    }
+}
+
+
+//如何使用全局事件总线
+/* 
+ 
+1. 下载events库
+yarn add events
+
+2. 引入evnets 
+import {EventEmitter} from 'events'
+
+3. 创建events实例
+const eventBus = new EventEmitter()
+
+4. 发送emit (A组件和B组件通信,在A组件中发送)
+eventBus.emit(事件名,数据,数据)
+
+5. B组件创建时订阅eventbus接收数据 , 卸载时取消订阅
+一般在componentDidMount中订阅 , 在componentWillUnmount中取消订阅
+订阅: eventBus.addListener(事件名,回调函数)
+取消订阅: eventBus.removeListener(事件名,回调函数)
+
+
+*/

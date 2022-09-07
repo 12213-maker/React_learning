@@ -1,0 +1,33 @@
+Arguments: 
+  D:\nodejs\node.exe C:\node\node_global\node_modules\yarn\bin\yarn.js add 二vnet\
+
+PATH: 
+  D:\bin\;C:\Windows\system32;C:\Program Files\Java\jdk1.8.0_152\bin;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js;C:\Program Files\Java\jdk1.8.0_152\jre\bin;D:\Program Files\微信web开发者工具\dll;C:\Program Files\dotnet\;C:\node\node_global;D:\nvm;D:\nodejs;D:\nvm\v12.22.6;C:\Users\mushroomm\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\mushroomm\AppData\Local\Programs\Python\Python310\;C:\Users\mushroomm\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;C:\Users\mushroomm\Desktop\hello;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js\node_gobal\node_modules;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js\node_global;C:\Program Files\MongoDB\Server\4.0\bin;C:\Users\mushroomm\AppData\Roaming\Tencent\QQGameTempest\Hall.57734\;C:\Users\mushroomm\.dotnet\tools;D:\nvm;D:\nodejs
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.16.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  TypeError [ERR_UNESCAPED_CHARACTERS]: Request path contains unescaped characters
+      at new ClientRequest (_http_client.js:151:13)
+      at Object.request (https.js:313:10)
+      at Request.module.exports.Request.start (C:\node\node_global\node_modules\yarn\lib\cli.js:141452:32)
+      at Request.module.exports.Request.end (C:\node\node_global\node_modules\yarn\lib\cli.js:142211:10)
+      at end (C:\node\node_global\node_modules\yarn\lib\cli.js:141265:14)
+      at Immediate._onImmediate (C:\node\node_global\node_modules\yarn\lib\cli.js:141279:7)
+      at processImmediate (internal/timers.js:461:21)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
