@@ -1,18 +1,11 @@
-import React, { Component } from 'react'
-import Kid from './Kid'
+import React, { PureComponent } from 'react'
 
-export default class Parent extends Component {
+export default class Parent extends PureComponent {
   render() {
+    console.log('Parent-render');
     return (
-      <div>Parent
-        {/* 也可以这样写,表示props默认展开 */}
-          <Kid {...this.props}/>
-          <Kid name={this.props.name}/>
+      <div>Parent</div>
 
-        
-        
-          <Kid/>
-      </div>
     )
   }
 }

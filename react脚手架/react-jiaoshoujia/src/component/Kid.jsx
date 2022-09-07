@@ -1,17 +1,11 @@
-import React, { Component } from 'react'
-import {Usercontext} from '../context/index'
+import React, { PureComponent } from 'react'
 
-
-//接受context的时候必须是类组件,不能是函数式组件
-
-export default class Kid extends Component {
+export default class Kid extends PureComponent {
   render() {
-    console.log(Usercontext);
+    console.log('kid-render');
     return (
-      <div>Kid's name is { this.props.name||this.context.name}</div>
+      <div>Kid</div>
 
     )
   }
 }
-
-Kid.contextType = Usercontext
