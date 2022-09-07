@@ -55,9 +55,4 @@ export class App extends React.Component {
 setState在不同的使用方式中更新状态是不一样的
 --在组件生命周期或React合成事件中,setState是异步的
 --在setTimeout或者原生dom事件中,setState是同步的
-
-setState异步的原因
-(1). 如果每次调用setState都进行一次更新，那么意味着render函数会被频繁调用，
-界面重新渲染，这样效率是很低的;最好的办法应该是获取到多个更新，之后进行批量更新;
-(2). 如果同步更新了state，但是还没有执行render函数，那么state和props不能保持同步state和props不能保持一致性，会在开发中产生很多的问题;
- */
+*/
