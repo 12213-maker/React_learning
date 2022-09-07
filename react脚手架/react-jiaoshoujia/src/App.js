@@ -1,64 +1,63 @@
 import React from "react"
-import Parent from './component/Parent'
-import { Usercontext } from './context/index'
 
 export class App extends React.Component {
     constructor() {
         super()
         this.state = {
-            name: 'tom'
+            counter: 0,
+            show:'12'
         }
     }
     render() {
         return (
-
             <div>
-
-
-
-                <Usercontext.Provider value={this.state}>
-                    <Parent name="jack" />
-                </Usercontext.Provider>
-
-
-
+                <h2>{this.state.counter},{this.state.show}</h2>
+                <button onClick={e => this.changecounter()}>改变文本</button>
             </div>
 
         )
     }
-}
+    changecounter() {
+        //相同的setState操作是会被合并的
+        // this.setState({
+        //     counter:this.state.counter+1
+        // })
+        // this.setState({
+        //     counter:this.state.counter+1,
+        //     show:'21'
+        // })
+        // this.setState({
+        //     counter:this.state.counter+1
+        // })
 
-{/* 使用context来跨组件传递 */ }
-
-//1. 创建context对象
-//这里我重新创建了一个文件导入了context对象
-// export const Usercontext = React.createContext()
-
-
-//2. 用context对象中的Provider作为组件包裹子组件
-{/* <Usercontext.Provider value={this.state}>
-    <Parent name="jack" />
-</Usercontext.Provider> */}
-
-//3. 在子组件中使用 组件名.contextType = context对象
-// Kid.contextType = Usercontext
-
-//4. 在想使用的地方使用this.context.属性名
-{/* <div>Kid's name is { this.props.name||this.context.name}</div> */}
-
-
-
-//函数式组件使用context的方法
-export default function Kid() {
-    return (
-        <Usercontext.Consumer>
-            {
-                value => {
-                    return (
-                        <h3>{value.name}</h3>
-                    )
-                }
+        //想要相同的操作不被合并的方法
+        this.setState((prevState,props)=>{
+            return {
+                counter:prevState.counter+1
             }
-        </Usercontext.Consumer>
-    )
+        })
+        this.setState((prevState,props)=>{
+            return {
+                counter:prevState.counter+1
+            }
+        })
+        this.setState((prevState,props)=>{
+            return {
+                counter:prevState.counter+1
+            }
+        })
+
+
+        /* 
+        总结: 
+        在setState中传入对象的话,多次相同的数据改变是会被最后一次覆盖的, 
+        因为每一次setState都调用了 Object.assgin({},this.state,{counter:this.state.counter+1})
+
+        当setState中传入函数的时候,函数中两个参数prevState与props , 
+        其中的prevState参数在每一次函数执行的时候都会以当下函数的结果作为下一次setState的prevState参数
+        从而实现setState的累加效果
+
+        */
+    }
 }
+
