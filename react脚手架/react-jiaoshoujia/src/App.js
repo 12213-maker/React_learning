@@ -1,63 +1,72 @@
-import React from "react"
+import React, { PureComponent } from 'react'
+import {EventEmitter} from 'events'
 
-export class App extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            counter: 0,
-            show:'12'
-        }
+const eventBus = new EventEmitter()
+
+class Home extends PureComponent {
+
+    componentDidMount(){
+        eventBus.addListener('sayHello',this.getSayHello)
     }
+    
+    componentWillUnmount(){
+        eventBus.removeListener('sayHello',this.getSayHello)
+    }
+
+    getSayHello(){
+        console.log(...arguments);
+    }
+
+    render() {
+        return (
+            <div>Home</div>
+        )
+    }
+}
+class Profile extends PureComponent {
+    render() {
+        return (
+            <div>Profile
+                <button onClick={e=>this.emitEvent()}>点击了Profile的按钮</button>
+            </div>
+        )
+    }
+
+    emitEvent(){
+        eventBus.emit('sayHello','hello home',123)
+    }
+}
+export default class App extends PureComponent {
     render() {
         return (
             <div>
-                <h2>{this.state.counter},{this.state.show}</h2>
-                <button onClick={e => this.changecounter()}>改变文本</button>
+                <Home />
+                <Profile />
             </div>
-
         )
-    }
-    changecounter() {
-        //相同的setState操作是会被合并的
-        // this.setState({
-        //     counter:this.state.counter+1
-        // })
-        // this.setState({
-        //     counter:this.state.counter+1,
-        //     show:'21'
-        // })
-        // this.setState({
-        //     counter:this.state.counter+1
-        // })
-
-        //想要相同的操作不被合并的方法
-        this.setState((prevState,props)=>{
-            return {
-                counter:prevState.counter+1
-            }
-        })
-        this.setState((prevState,props)=>{
-            return {
-                counter:prevState.counter+1
-            }
-        })
-        this.setState((prevState,props)=>{
-            return {
-                counter:prevState.counter+1
-            }
-        })
-
-
-        /* 
-        总结: 
-        在setState中传入对象的话,多次相同的数据改变是会被最后一次覆盖的, 
-        因为每一次setState都调用了 Object.assgin({},this.state,{counter:this.state.counter+1})
-
-        当setState中传入函数的时候,函数中两个参数prevState与props , 
-        其中的prevState参数在每一次函数执行的时候都会以当下函数的结果作为下一次setState的prevState参数
-        从而实现setState的累加效果
-
-        */
     }
 }
 
+
+//如何使用全局事件总线
+/* 
+ 
+1. 下载events库
+yarn add events
+
+2. 引入evnets 
+import {EventEmitter} from 'events'
+
+3. 创建events实例
+const eventBus = new EventEmitter()
+
+4. 发送emit (A组件和B组件通信,在A组件中发送)
+eventBus.emit(事件名,数据,数据)
+
+5. B组件创建时订阅eventbus接收数据 , 卸载时取消订阅
+一般在componentDidMount中订阅 , 在componentWillUnmount中取消订阅
+订阅: eventBus.addListener(事件名,回调函数)
+取消订阅: eventBus.removeListener(事件名,回调函数)
+
+
+*/
