@@ -1,6 +1,7 @@
 import React, { PureComponent ,Fragment} from 'react'
-import Appcopy from './css-modules/app'
-import Home from './css-modules/home'
+import Appcopy from './styled-components/app'
+import Home from './styled-components/home'
+import { ThemeProvider } from 'styled-components'
 
 export default class App extends PureComponent {
   constructor(){
@@ -11,10 +12,11 @@ export default class App extends PureComponent {
   }
   render() {
     return (
-      <>
+      //这个项目的主题
+      <ThemeProvider theme={{ themeColor: "yellow" }}>
         <Appcopy></Appcopy>
         <Home></Home>
-      </>
+      </ThemeProvider>
 
     )
   }
