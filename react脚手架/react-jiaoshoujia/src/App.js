@@ -1,28 +1,21 @@
-import React, { PureComponent ,Fragment} from 'react'
-import Appcopy from './styled-components/app'
-import Home from './styled-components/home'
-import { ThemeProvider } from 'styled-components'
+import React, { PureComponent } from 'react'
+import className from 'classnames'
 
 export default class App extends PureComponent {
-  constructor(){
-    super()
-    this.state={
-      counter:0
-    }
-  }
   render() {
+    const foo = false
     return (
-      //这个项目的主题
-      <ThemeProvider theme={{ themeColor: "yellow" }}>
-        <Appcopy></Appcopy>
-        <Home></Home>
-      </ThemeProvider>
-
+      <div>
+        <ul>
+          <li className='foo bar baz'>1</li>
+          {/* className函数中可以传入字符串,对象,数组 混入的方式*/}
+          <li className={className('foo','bar','baz')}>2</li>
+          <li className={className('foo bar baz')}>3</li>
+          <li className={className({foo:foo},'bar')}>4</li>
+          <li className={className(foo,['bar','baz'])}>5</li>
+          <li className={className('  ',['bar','baz',{fuc:true}])}>6</li>
+        </ul>
+      </div>
     )
-  }
-  changeCounter(){
-    this.setState({
-      counter:this.state.counter+1
-    })
   }
 }
