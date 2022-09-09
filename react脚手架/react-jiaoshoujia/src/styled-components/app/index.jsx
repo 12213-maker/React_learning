@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import style from './style.module.css'
+import {AppcopyContainer} from './style.js'
 
 export default class Appcopy extends PureComponent {
     constructor(){
@@ -10,11 +10,16 @@ export default class Appcopy extends PureComponent {
     }
   render() {
     return (
-      <>
+      <AppcopyContainer>
+        <ul className='ulClass'>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
         app
-        <div className={style.showme} style={{color:this.state.color}}>showme</div>
+        <div style={{color:this.state.color}}>showme</div>
         <button onClick={e=>this.setState({color:'red'})}>点击切换颜色</button>
-      </>
+      </AppcopyContainer>
     )
   }
 }
