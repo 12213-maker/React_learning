@@ -2,7 +2,6 @@
 
 import ReactDOM from "react-dom"
 import React from "react"
-import App from './高阶组件-生命周期劫持'
-
+import App from './App'
 
 ReactDOM.render(<App/>,document.getElementById('root'))
