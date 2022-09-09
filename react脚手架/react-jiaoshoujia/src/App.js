@@ -1,28 +1,55 @@
-import React, { PureComponent ,Fragment} from 'react'
-import Appcopy from './styled-components/app'
-import Home from './styled-components/home'
-import { ThemeProvider } from 'styled-components'
+import React, { PureComponent } from 'react'
+import { Button, Space ,DatePicker  } from 'antd'
+import { PoweroffOutlined } from '@ant-design/icons';
+import moment from 'moment'
+import About from 'component/about/abput2/abput3'
+const { RangePicker } = DatePicker;
+
 
 export default class App extends PureComponent {
-  constructor(){
-    super()
-    this.state={
-      counter:0
-    }
-  }
   render() {
+    const loadings = true
     return (
-      //这个项目的主题
-      <ThemeProvider theme={{ themeColor: "yellow" }}>
-        <Appcopy></Appcopy>
-        <Home></Home>
-      </ThemeProvider>
+      <>
+      <About/>
 
+        <Space style={{ width: '100%' }}>
+          <Button type="primary" loading>
+            Loading
+          </Button>
+          <Button type="primary" size="small" loading>
+            Loading
+          </Button>
+          <Button type="primary" icon={<PoweroffOutlined />} loading />
+        </Space>
+
+        <Space style={{ width: '100%' }}>
+          <Button type="primary" loading={loadings[0]} >
+            Click me!
+          </Button>
+          <Button
+            type="primary"
+            icon={<PoweroffOutlined />}
+            loading={loadings[1]}
+          >
+            Click me!
+          </Button>
+          <Button
+            type="primary"
+            icon={<PoweroffOutlined />}
+            loading={loadings[2]}
+          />
+
+          <RangePicker
+            ranges={{
+              Today: [moment(), moment()],
+              'This Month': [moment().startOf('month'), moment().endOf('month')],
+            }}
+            showTime
+            format="YYYY/MM/DD HH:mm:ss"
+          />
+        </Space>
+      </>
     )
-  }
-  changeCounter(){
-    this.setState({
-      counter:this.state.counter+1
-    })
   }
 }
