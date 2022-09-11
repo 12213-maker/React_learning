@@ -1,55 +1,41 @@
 import React, { PureComponent } from 'react'
-import { Button, Space ,DatePicker  } from 'antd'
-import { PoweroffOutlined } from '@ant-design/icons';
-import moment from 'moment'
-import About from 'component/about/abput2/abput3'
-const { RangePicker } = DatePicker;
-
+import CommentItem from './comment/conmentItem'
+import CommentInput from './comment/commentInput'
 
 export default class App extends PureComponent {
+  constructor(){
+    super()
+    this.state={
+      list:[]
+    }
+  }
   render() {
-    const loadings = true
     return (
       <>
-      <About/>
+        {/* <CommentItem></CommentItem> */}
 
-        <Space style={{ width: '100%' }}>
-          <Button type="primary" loading>
-            Loading
-          </Button>
-          <Button type="primary" size="small" loading>
-            Loading
-          </Button>
-          <Button type="primary" icon={<PoweroffOutlined />} loading />
-        </Space>
-
-        <Space style={{ width: '100%' }}>
-          <Button type="primary" loading={loadings[0]} >
-            Click me!
-          </Button>
-          <Button
-            type="primary"
-            icon={<PoweroffOutlined />}
-            loading={loadings[1]}
-          >
-            Click me!
-          </Button>
-          <Button
-            type="primary"
-            icon={<PoweroffOutlined />}
-            loading={loadings[2]}
-          />
-
-          <RangePicker
-            ranges={{
-              Today: [moment(), moment()],
-              'This Month': [moment().startOf('month'), moment().endOf('month')],
-            }}
-            showTime
-            format="YYYY/MM/DD HH:mm:ss"
-          />
-        </Space>
+        {
+          this.state.list.map((item,index)=>{
+            return (
+              <CommentItem key={index} {...item} deleteitem={id=>{this.deleteitem(id)}}></CommentItem>
+            )
+          })
+        }
+        <CommentInput submitComment={this.submitComment.bind(this)}></CommentInput>
       </>
     )
+  }
+  submitComment(info){
+    this.setState({
+      list:[info,...this.state.list]
+    })
+  }
+  deleteitem(id){
+    const newlist = this.state.list.filter((item)=>{
+      return item.id!==id
+    })
+    this.setState({
+      list:newlist
+    })
   }
 }
