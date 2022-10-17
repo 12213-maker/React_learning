@@ -1,74 +1,40 @@
 import React, { PureComponent } from 'react'
-import axios from 'axios'
+//ref的转发，例如：获取表单元素中的值
 
+// class Kid extends PureComponent {
+//     render() {
+//         return (
+//             <div>
+//                 <input value={'一十四洲'} />
+//             </div>
+//         )
+//     }
+// }
 
-//这样可以修改axios的默认配置
-axios.defaults.baseURL = "https://httpbin.org";
-axios.defaults.timeout = 5000;
-axios.defaults.headers.common['token'] = '46354';
-axios.defaults.headers.post["Content-type"] ='application/text';
+//forwardRef的转发，forwardRef是一个函数，以render函数作为参数，返回一个组件
+const Kid = React.forwardRef((props, refs) => {
+    return (
+        <div>
+            <input value={'一十四洲'} ref={refs}/>
+        </div>
+    )
+})
 
 export default class App extends PureComponent {
-
-  async componentDidMount() {
-    // axios({
-    //   url: 'http://httpbin.org/get',
-    //   method: 'get',
-    //   params: {
-    //     name: 'why',
-    //     age: 18
-    //   }
-    // }).then(
-    //   (res) => { console.log(res); },
-    //   (err) => { console.log(err); }
-    // )
-
-
-    // axios.get("http://httpbin.org/get", {
-    //   params: {
-    //     name: 'why',
-    //     age: 18
-    //   }
-    // }).then(
-    //   (res) => { console.log(res); },
-    //   (err) => { console.log(err); }
-    // )
-
-
-    // axios.post('http://httpbin.org/post',{
-    //   data:{
-    //     name: 'why',
-    //     age: 18
-    //   }
-    // }).then(
-    //   (res) => { console.log(res);},
-    //   (err) => { console.log(err);}
-    //   )
-
-
-    //当我们想要捕获错误的时候就可以使用try catch
-    try{
-      const result = await axios.post('http://httpbin.org/post',{
-        data:{
-          name: 'why',
-          age: 18
-        }
-      })
-
-      console.log(result);
-    }catch(err){
-      console.log(err);
+    constructor() {
+        super()
+        this.value = React.createRef()
+        this.state = {}
     }
+    componentDidMount() {
+        console.log(this.value.current.value);
+    }
+    render() {
 
-
-  }
-
-  render() {
-    return (
-      <div>
-
-
-      </div>
-    )
-  }
+        return (
+            <div>
+                <Kid ref={this.value}></Kid>
+            </div>
+        )
+    }
 }
