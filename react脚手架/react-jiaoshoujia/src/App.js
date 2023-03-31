@@ -3,73 +3,46 @@ import axios from 'axios'
 import ContextLearn from './ContextFun'
 import ContextClass from './ContextClass'
 
-//这样可以修改axios的默认配置
-axios.defaults.baseURL = "https://httpbin.org";
-axios.defaults.timeout = 5000;
-axios.defaults.headers.common['token'] = '46354';
-axios.defaults.headers.post["Content-type"] = 'application/text';
-
-export default class App extends PureComponent {
-
-  async componentDidMount() {
-    // axios({
-    //   url: 'http://httpbin.org/get',
-    //   method: 'get',
-    //   params: {
-    //     name: 'why',
-    //     age: 18
-    //   }
-    // }).then(
-    //   (res) => { console.log(res); },
-    //   (err) => { console.log(err); }
-    // )
-
-
-    // axios.get("http://httpbin.org/get", {
-    //   params: {
-    //     name: 'why',
-    //     age: 18
-    //   }
-    // }).then(
-    //   (res) => { console.log(res); },
-    //   (err) => { console.log(err); }
-    // )
-
-
-    // axios.post('http://httpbin.org/post',{
-    //   data:{
-    //     name: 'why',
-    //     age: 18
-    //   }
-    // }).then(
-    //   (res) => { console.log(res);},
-    //   (err) => { console.log(err);}
-    //   )
-
-
-    //当我们想要捕获错误的时候就可以使用try catch
-    try {
-      const result = await axios.post('http://httpbin.org/post', {
-        data: {
-          name: 'why',
-          age: 18
+export class App extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            message: 'hello world',
+            name: 'coderwhy',
+            counter: 0
         }
-      })
-
-      console.log(result);
-    } catch (err) {
-      console.log(err);
     }
+    render() {
+        return (
+            <div>
+                <h2>{this.state.message}</h2>
+                <h2>{this.state.name}</h2>
+                <h2>{this.state.counter}</h2>
+                <button onClick={e => this.changemessage()}>改变文本</button>
+                <button onClick={e => this.Counteradd()}>counter++</button>
 
+            </div>
 
-  }
-
-  render() {
-    return (
-      <div>
-        <ContextLearn></ContextLearn>
-        <ContextClass></ContextClass>
-      </div>
-    )
-  }
+        )
+    }
+    changemessage() {
+        this.setState({
+            message: '你好 之华'
+        })
+        //setState传入了一个新的对象,不会覆盖掉state对象中的name属性吗?
+        //在react源码中 ---> Object.assgin({},this.state,{message:'你好 之华'})
+    }
+    Counteradd() {
+        //这样就不会在异步更新队列里面合并成一次更新
+        this.setState((prevState) => {
+            return { counter: prevState.counter + 1 }
+        })
+        this.setState((prevState) => {
+            return { counter: prevState.counter + 1 }
+        })
+        this.setState((prevState) => {
+            return { counter: prevState.counter + 1 }
+        })
+    }
 }
+
