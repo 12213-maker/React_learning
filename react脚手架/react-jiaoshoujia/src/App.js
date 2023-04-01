@@ -1,66 +1,57 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+import { useState } from "react";
+import style1 from './css-modules/style1.module.css'
+import style2 from './css-modules/style2.module.css'
+import Compoonent3 from './styled-components/Component3'
 
 
-//1.通过useRef和forwardRef 让父组件得到子组件的dom元素
-// export default function App() {
-//     let parentRef = useRef();
-//     function getSapn() {
-//         console.log(parentRef.current);
-//     }
-//     return (
-//         <>
-//             <Parent ref={parentRef}></Parent>
-//             <button onClick={e => getSapn()}>点击获取子组件span</button>
-//         </>
-//     );
-// }
-
-// const Parent = forwardRef(function (props, ref) {
-//     return (
-//         <>
-//             <span ref={ref}>子组件span</span>
-//         </>
-//     );
-// })
-
-
-//2.通过useImperativeHandle从子组件中暴露ref ，从而在父组件中得到
+// 1. 使用内联样式 style
 export default function App() {
-    let parentRef = useRef();
-    function getSapn() {
-        console.log(parentRef.current);
-        console.log(parentRef.current.ref1.current.innerText);
-        console.log(parentRef.current.ref2);
-        console.log(parentRef.current.ref3);
-
+    let [backgroundColor, setBackgroundColor] = useState('black');
+    let style = {
+        backgroundColor: backgroundColor,
+        color: 'red',
+        fontSize: '20px',
+    }
+    function changeColor() {
+        backgroundColor === 'black' ?
+            setBackgroundColor('blue') :
+            setBackgroundColor('black')
     }
     return (
         <>
-            <Parent ref={parentRef}></Parent>
-            <button onClick={e => getSapn()}>点击获取所有子组件</button>
+            <div>--------------使用内联样式 style----------------</div>
+            <span style={style}>showme</span>
+            <button onClick={changeColor}>点击改变背景颜色</button>
+
+            <Component1></Component1>
+            <Component2></Component2>
+            <Compoonent3></Compoonent3>
         </>
     );
 }
 
-const Parent = forwardRef(function (props, ref) {
-    const ref1 = useRef();
-    const ref2 = useRef();
-    const ref3 = useRef();
 
-    //通过useimperatHandle暴露出去
-    useImperativeHandle(ref, () => {
-        return {
-            ref1,
-            ref2,
-            ref3
-        }
-    },[])
-
+// 2. 使用module-css
+function Component1() {
     return (
         <>
-            <span ref={ref1}>ref1</span>
-            <span ref={ref2}>ref2</span>
-            <span ref={ref3}>ref3</span>
+            <div>--------------使用module-css----------------</div>
+            <span className={style1.title}>span1</span>
         </>
     );
-})
+}
+function Component2() {
+    return (
+        <>
+            <span className={style2.title}>span2</span>
+        </>
+    );
+}
+
+
+
+
+// 1. 使用内联样式 style
+// 2. 使用module-css
+// 3. 使用css in js ， 有很多第三方库适用于css in js，比如styled-component
+//    而且使用styled-component还可以轻易的实现js和css的交互，通过props传递变量
