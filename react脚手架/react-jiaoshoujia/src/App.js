@@ -2,7 +2,7 @@ import { useState } from "react";
 import style1 from './css-modules/style1.module.css'
 import style2 from './css-modules/style2.module.css'
 import Compoonent3 from './styled-components/Component3'
-
+import Component5 from './classNames/Component5'
 
 // 1. 使用内联样式 style
 export default function App() {
@@ -26,6 +26,7 @@ export default function App() {
             <Component1></Component1>
             <Component2></Component2>
             <Compoonent3></Compoonent3>
+            <Component5></Component5>
         </>
     );
 }

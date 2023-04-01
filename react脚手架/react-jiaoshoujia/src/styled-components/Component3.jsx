@@ -40,8 +40,8 @@ function Compoonent4() {
     <ThemeProvider theme={{ themeColor: 'black' }}>
       <h2 className="component4">Component4-title</h2>
       <ul className="ul">
-        <li>li</li>
-        <li>li</li>
+        <li className={'title ' + (true ? 'active' : '')}>li</li>
+        <li className={['title', (true ? 'active' : '')].join(' ')}>li</li>
         <li>li</li>
         <li>li</li>
       </ul>
