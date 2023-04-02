@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">app</div>
+
+    
+    <!-- 添加react依赖 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- 使用jsx -->
+    <script type="text/babel">
+        //创建一个类组件
+        class App extends React.Component{
+
+            constructor(){
+                super()
+                this.state = {
+                    title:'电影名',
+                    list:[1,2,3]
+                }
+            }
+
+            render(){
+                return(
+                    <div>
+                        <h2>{this.state.title}</h2>
+                        <input type="text"/>
+                        <ul>
+                        {this.state.list.map((item,index)=>{
+                            return <li key={index}>{item}</li>
+                        })}
+                        </ul>
+                        <button onClick={this.addmovie.bind(this)}>点击添加电影名</button>
+                    </div>
+                )
+            }
+
+            addmovie(){
+                console.log(this.state.list);
+                const newlist = [...this.state.list,'添加的电影名']
+                this.setState({
+                    list:newlist
+                })
+            }
+        }
+
+
+
+        //把组件挂载到app上面
+        ReactDOM.render(<App/>,document.getElementById('app'))
+
+    </script>
+</body>
+</html>

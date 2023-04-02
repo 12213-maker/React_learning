@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">app</div>
+
+    
+    <!-- 添加react依赖 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- 使用jsx -->
+    <script type="text/babel">
+        //封装组件:类组件 , 函数组件
+        class App extends React.Component{
+
+            constructor(){
+                //初始化父类的属性
+                super()
+                this.state = {
+                    message:'hello world'
+                }
+            }
+            
+            render(){
+                return (
+                    <div>
+                        <h2>{this.state.message}</h2>
+                        <button onClick={()=>this.clickchange()}>改变文本</button>
+                    </div>
+                )
+            }
+
+            clickchange(){
+                //传入一个新的对象
+                this.setState({
+                    message:'new massage'
+                })
+            }
+        }
+
+
+        //渲染App组件到根app上
+        ReactDOM.render(<App/>,document.getElementById('app'))
+    </script>
+</body>
+</html>
