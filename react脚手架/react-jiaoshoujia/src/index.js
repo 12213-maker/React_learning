@@ -10,4 +10,10 @@ import App from './App'
 //craco修改引入的样式
 import 'antd/dist/antd.less';
 
-ReactDOM.render(<App/>,document.getElementById('root'))
+//使用redux
+import { Provider } from 'react-redux'
+import store from './store/index'
+
+ReactDOM.render(
+  <Provider store={store}><App /></Provider>
+  , document.getElementById('root'))
