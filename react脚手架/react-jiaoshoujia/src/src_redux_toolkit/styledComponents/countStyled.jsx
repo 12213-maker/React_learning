@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const AppStyled = styled.div`
+const App2Styled = styled.div`
   position: absolute;
   left: 50%;
-  top: 30%;
+  top: 60%;
   transform: translate(-50%,-50%);
   background-color: ${props => props.backColor};
   .alltitle{
@@ -18,4 +18,4 @@ const AppStyled = styled.div`
     text-align: center;
   }
 `
-export default AppStyled;
+export default App2Styled;

@@ -7,9 +7,12 @@ export const CountSubscribe = () => {
 
   const [count, setCount] = useState(store.getState().count);
   useEffect(() => {
-    store.subscribe(() => {
+    const unsubscribe = store.subscribe(() => {
       setCount(store.getState().count);
     })
+    return () => {
+      unsubscribe();
+    }
   })
 
   useEffect(() => { document.title = `You clicked ${count} times`; });

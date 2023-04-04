@@ -17,9 +17,8 @@ export default function Count() {
   }
   return (
     <CountStyled backColor={'lightblue'}>
-      <CountSubscribe></CountSubscribe>
-
       <div className='alltitle'>使用传统redux</div>
+      <CountSubscribe></CountSubscribe>
       <span className='title'>{count}</span>
       <button onClick={e => store.dispatch(addAction())}>点击加一</button>
       <button onClick={e => store.dispatch(subAction())}>点击减一</button>
