@@ -1,15 +1,9 @@
-import store from './store/index'
-import { Provider } from 'react-redux';
-import Counter from './Counter';
-import User from './User/User';
+import Count from "./components/Count";
 
-const App = () => {
+export default function App() {
     return (
-        <Provider store={store}>
-            APP
-            <Counter></Counter>
-            <User></User>
-        </Provider>
+        <>
+            <Count></Count>
+        </>
     );
 }
-export default App
