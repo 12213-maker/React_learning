@@ -1,17 +1,63 @@
-import Count from "./components/Count";
-import App2 from "./src_redux_toolkit/App2";
+import React, { PureComponent } from 'react'
+import Count from './useEffect/Count';
+import Father from './useContext/Father';
+import Home from './useReducer/Home';
+import Callback from './useCallback/Callback';
+import Memo from './useMemo/Memo';
 
-//redux-toolkit的使用
-import { store } from "./src_redux_toolkit/store/index";
-import { Provider } from "react-redux";
+export default class App extends PureComponent {
 
-export default function App() {
-    return (
-        <>
-            <Count></Count>
+    constructor(props) {
+        super(props);
+        this.state = {
+            counter: 0
+        }
+    }
+    render() {
+        const { counter } = this.state;
+        return (
+            <div>
+                <div style={{ backgroundColor: 'lightblue' }}>
+                    <h2>useState的使用</h2>
+                    <span>{counter}</span>
+                    <hr></hr>
+                    <button onClick={() => this.setState({ counter: counter + 1 })}>counter+1</button>
+                    <hr></hr>
+                </div>
 
-            {/*下面这个App2就相当于挂载到根节点的原App*/}
-            <Provider store={store}><App2 /></Provider>
-        </>
-    );
+                <hr></hr>
+
+                <div style={{ backgroundColor: 'lightpink' }}>
+                    <h2>useEffect的使用</h2>
+                    <Count></Count>
+                </div>
+
+                <hr></hr>
+
+                <div style={{ backgroundColor: 'lightyellow' }}>
+                    <h2>useContext的使用</h2>
+                    <Father></Father>
+                </div>
+
+
+                <div style={{ backgroundColor: 'lightgreen' }}>
+                    <h2>useReducer的使用</h2>
+                    <Home></Home>
+                </div>
+
+                <div style={{ backgroundColor: '#fba' }}>
+                    <h2>useCallback的使用</h2>
+                    <Callback></Callback>
+                </div>
+
+
+                <div style={{ backgroundColor: '#bfa', padding: '20px' }}>
+                    <h2>useMemo的使用</h2>
+                    <Memo></Memo>
+                </div>
+            </div>
+        )
+    }
 }
+
+
