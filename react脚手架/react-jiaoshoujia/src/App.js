@@ -4,6 +4,9 @@ import Father from './useContext/Father';
 import Home from './useReducer/Home';
 import Callback from './useCallback/Callback';
 import Memo from './useMemo/Memo';
+import Parent from './useRef/Parent';
+import Index from './useLayoutEffect/Index';
+import Myhook from './自定义hook/Myhook';
 
 export default class App extends PureComponent {
 
@@ -17,7 +20,7 @@ export default class App extends PureComponent {
         const { counter } = this.state;
         return (
             <div>
-                <div style={{ backgroundColor: 'lightblue' }}>
+                {/* <div style={{ backgroundColor: 'lightblue' }}>
                     <h2>useState的使用</h2>
                     <span>{counter}</span>
                     <hr></hr>
@@ -54,6 +57,21 @@ export default class App extends PureComponent {
                 <div style={{ backgroundColor: '#bfa', padding: '20px' }}>
                     <h2>useMemo的使用</h2>
                     <Memo></Memo>
+                </div> */}
+
+                {/* <div style={{ backgroundColor: '#fba' }}>
+                    <h2>useRef的使用</h2>
+                    <Parent></Parent>
+                </div> */}
+
+                {/* <div style={{ backgroundColor: 'lightblue' }}>
+                    <h2>useRef的使用</h2>
+                    <Index></Index>
+                </div> */}
+
+                <div style={{ backgroundColor: 'lightpink' }}>
+                    <h2>自定义hook的使用</h2>
+                    <Myhook />
                 </div>
             </div>
         )
