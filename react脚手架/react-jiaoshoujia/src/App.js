@@ -4,7 +4,7 @@ import Father from './useContext/Father';
 import Home from './useReducer/Home';
 import Callback from './useCallback/Callback';
 import Memo from './useMemo/Memo';
-import Parent from './useRef/Parent';
+import Parent from './useRef , useImperativeHandle/Parent'
 import Index from './useLayoutEffect/Index';
 import Myhook from './自定义hook/Myhook';
 

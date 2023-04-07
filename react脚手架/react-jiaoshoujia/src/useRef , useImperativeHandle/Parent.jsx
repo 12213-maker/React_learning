@@ -44,7 +44,7 @@ export default function Parent() {
 
 
       {/*利用useRef保存count上一次的值*/}
-      {/* <Comp2></Comp2> */}
+      <Comp2></Comp2>
     </div>
   )
 }
