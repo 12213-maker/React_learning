@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Router, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import { setUsername } from '../store/reducer/userRducer';
 
 export default function Home() {
