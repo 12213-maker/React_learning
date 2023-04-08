@@ -3,31 +3,13 @@
 import ReactDOM from "react-dom"
 import React from "react"
 import App from './App'
-import { Router, Route } from 'react-router'
-
 import 'antd/dist/antd.less';
-
-
-function About() {
-  return <h3>About</h3>
-}
-function Inbox() {
-  return <h3>Inbox</h3>
-}
-
-function Message() {
-  return <h3>Message</h3>
-}
+//挂载redux-toolkit
+import { store } from "./store";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
 
 
-ReactDOM.render(
-  <Router>
-    <Route path="/" component={App}>
-      <Route path="about" component={About} />
-      <Route path="inbox" component={Inbox}>
-        <Route path="messages/:id" component={Message} />
-      </Route>
-    </Route>
-  </Router>, document.getElementById('root'))
+ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>, document.getElementById('root'))
 
