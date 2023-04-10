@@ -42,3 +42,5 @@ class Dog extends Animal {
 let dog = new Dog('小狗', 2);
 console.log(dog.name, dog.age, dog.sex);
 dog.eating();
+
+

@@ -2,6 +2,7 @@
   //父类本身不需要对某些方法进行具体类的实现，所以父类中定义的方法，我们可以定义为抽象方法
 */
 
+//抽象类自身不能实例化
 abstract class Shape {
   abstract getArea(): number;
 }
@@ -38,3 +39,23 @@ let s1 = new S1(3);
 let s2 = new S2(2);
 console.log(getAreaFun(s1));
 console.log(getAreaFun(s2));
+
+
+//提一句类的类型
+class Person {
+  name: string = '123';
+  eating() {
+
+  }
+}
+
+//直接把class作为类型
+let p: Person = {
+  name: 'mushroom',
+  eating() {
+    console.log(this.name);
+  }
+}
+p.eating();
+
+export { }
