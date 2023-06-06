@@ -1,32 +1,36 @@
-import React from "react"
-//使用类组件
-// class App extends React.Component{
-//     constructor(){
-//         super()
-//         this.state={
-//             name:'jack'
-//         }
-//     }
+/* eslint-disable */
+import React, { Suspense, useState } from 'react'
+import { RecoilRoot } from 'recoil';
+
+import MobxComponent from './view/mobx/index'
+import RecoilComponent from './view/recoil/index'
+import Zusand from './view/zusand';
 
 
-//     render(){
-//         const {name} = this.state
-//         return (
-//             <div>
-//                 <h2>我是类组件{name}</h2>
-//             </div>
-//         )
-//     }
-// }
-
-
-//使用函数式组件
-/* 特点:1.没有this
-2.hooks->解决状态保存问题 */
-function App(){
-    return (
-        <div>我是函数式组件</div>
-    )
+export default function App() {
+    const [mobx,setMobxShow] = useState(false);
+    const [recoil,setRecoilShow] = useState(false);
+    const [zusand,setZusandShow] = useState(false)
+    const setShow = ()=>{
+        setMobxShow(false)
+        setRecoilShow(false)
+        setZusandShow(false)
+    }
+  return (
+    <div>
+        <div style={{display:'flex',flexDirection:'row',width:'300px',justifyContent:'space-between',cursor:'pointer'}}>
+            <div onClick={()=>{setShow();setMobxShow(true)}}>Mobx</div>
+            <div onClick={()=>{setShow();setRecoilShow(true)}}>Recoil</div>
+            <div onClick={()=>{setShow();setZusandShow(true)}}>Zusand</div>
+        </div>
+        {mobx&&<MobxComponent></MobxComponent>}
+        {recoil&& 
+        <RecoilRoot>
+            <Suspense fallback={<div>loading...</div>}>
+                <RecoilComponent/>
+            </Suspense>
+        </RecoilRoot>}
+        {zusand&&<Zusand></Zusand>}
+    </div>
+  )
 }
-
-export default App
