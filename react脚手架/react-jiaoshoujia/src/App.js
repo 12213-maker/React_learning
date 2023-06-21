@@ -1,48 +1,72 @@
-import React, { Fragment } from "react"
+import React, { Suspense, memo, useMemo, useState } from 'react'
+import { useRoutes, Link} from 'react-router-dom'
+import router from './router/router'
 
-class App extends React.Component {
+const Components = [
+    {
+        name: '认识jsx',
+        component: React.lazy(() => import('./reactAdvanced/01_jsx')),
+        show: true
+    },
+    {
+        name: '起源 Component',
+        component: React.lazy(() => import('./reactAdvanced/02_originComponent')),
+        show: false
+    }
+]
 
-    arr = [1, 2, 3, 4]
+const App = memo(() => {
+    const [comps, setComps] = useState(Components)
+    const ComponentNow = useMemo(() => {
+        return comps.filter((item) => item.show)[0].component
+    }, [comps])
 
-    renderDom = (
-        <div style={{ color: 'lightblue' }}>
-            {/* 字符串 */}
-            my name is lnl
-            {/* dom元素 */}
-            <div>dom元素</div>
-            {/* 函数组件 */}
-            <Kid></Kid>
-            {/* 数组 */}
-            {
-                this.arr.map((item) => {
-                    return <Fragment key={item}>{item}</Fragment>
-                })
-            }
-            <button onClick={() => { console.log(this.render()) }}>打印render之后的内容</button>
+    const init = () => {
+        const newComps = comps.map((item) => {
+            return { ...item, show: false }
+        })
+        setComps(newComps)
+    }
+
+    function changeShow(e) {
+        init()
+        const value = e.target.innerText
+        setComps((comps) => {
+            return comps.map((item) => {
+                if (item.name === value) {
+                    return { ...item, show: true }
+                }
+                return item
+            })
+        })
+    }
+
+    return (
+        <div>
+            <h3>
+                {
+                    comps.map((item) => {
+                        return (
+                            <div key={item.name} style={{cursor:'pointer'}} onClick={(e) => changeShow(e)}>{item.name}</div>
+                        )
+                    })
+                }
+            </h3>
+            <Suspense fallback={<div>loading...</div>}>
+                <ComponentNow></ComponentNow>
+            </Suspense>
+
+
         </div>
     )
-    flattenRenderDom = (dom) => {
-        const { children } = dom.props
-        const flatChildren = React.Children.toArray(children)
-        const newChildren = flatChildren.filter((item) => {
-            return React.isValidElement(item)
-        })
-        const lastChildren = React.createElement('div', { style: { color: 'lightpink' } }, 'last-children')
-        newChildren.push(lastChildren)
-        const newReactElement = React.cloneElement(dom, {}, ...newChildren)
-        return newReactElement
-    }
-    render() {
-        return (
-            <>
-                {this.renderDom}
-                {this.flattenRenderDom(this.renderDom)}
-            </>
-        )
-    }
-}
+})
 
-
-const Kid = () => <div>Kid</div>
+// const App = ()=>{
+//     return (
+//         <Suspense fallback={<div>loading...</div>}>
+//             {useRoutes(router)}
+//         </Suspense>
+//     )
+// }
 
 export default App
