@@ -1,72 +1,47 @@
-import React, { Suspense, memo, useMemo, useState } from 'react'
-import { useRoutes, Link} from 'react-router-dom'
-import router from './router/router'
+// import React, { Suspense, memo, useMemo, useState } from 'react'
+// import { useRoutes, Link } from 'react-router-dom'
+// import router from './router/router'
 
-const Components = [
-    {
-        name: '认识jsx',
-        component: React.lazy(() => import('./reactAdvanced/01_jsx')),
-        show: true
-    },
-    {
-        name: '起源 Component',
-        component: React.lazy(() => import('./reactAdvanced/02_originComponent')),
-        show: false
-    }
-]
-
-const App = memo(() => {
-    const [comps, setComps] = useState(Components)
-    const ComponentNow = useMemo(() => {
-        return comps.filter((item) => item.show)[0].component
-    }, [comps])
-
-    const init = () => {
-        const newComps = comps.map((item) => {
-            return { ...item, show: false }
-        })
-        setComps(newComps)
-    }
-
-    function changeShow(e) {
-        init()
-        const value = e.target.innerText
-        setComps((comps) => {
-            return comps.map((item) => {
-                if (item.name === value) {
-                    return { ...item, show: true }
-                }
-                return item
-            })
-        })
-    }
-
-    return (
-        <div>
-            <h3>
-                {
-                    comps.map((item) => {
-                        return (
-                            <div key={item.name} style={{cursor:'pointer'}} onClick={(e) => changeShow(e)}>{item.name}</div>
-                        )
-                    })
-                }
-            </h3>
-            <Suspense fallback={<div>loading...</div>}>
-                <ComponentNow></ComponentNow>
-            </Suspense>
-
-
-        </div>
-    )
-})
-
-// const App = ()=>{
+// const App = () => {
 //     return (
-//         <Suspense fallback={<div>loading...</div>}>
-//             {useRoutes(router)}
-//         </Suspense>
+//         <>
+//             <div style={{backgroundColor:'lightblue'}}>
+//                 {
+//                     router.map((item) => {
+//                         return <Link style={{margin:'15px'}} key={item.path} to={item.path}>{item.path.substring(1)}</Link>
+//                     })
+//                 }
+//             </div>
+//             <Suspense fallback={<div>loading...</div>}>
+//                 {useRoutes(router)}
+//             </Suspense>
+//         </>
 //     )
 // }
 
-export default App
+// export default App
+
+
+import React, { Component } from 'react'
+
+export default class App extends Component {
+    state={
+        lists:[1,2,3]
+    }
+  render() {
+    return (
+        <div>
+        <ul>
+        {
+            this.state.lists.map((item)=>{
+                return <li key={item}>{item}</li>
+            })
+        }
+        </ul>
+        <button onClick={()=>this.setLists([2,3,4])}>修改lists</button>
+        <button onClick={() => { console.log(this.render()) }}>打印render之后的内容</button>
+    </div>
+    )
+  }
+}
+
